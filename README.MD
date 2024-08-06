@@ -15,3 +15,4 @@
 019 Chaining Multiple Middleware Functions
 020 Serving Static Files
 021 Environment Variables
+022 Setting up ESLint + Prettier in VS Code
