@@ -7,13 +7,26 @@ const port = 5173;
 // middleware
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log('Hello, I am from Middleware');
+  next();
+});
+
+app.use((req, res, next) => {
+  req.requestTime = new Date().toISOString();
+  next();
+});
+
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/dev-data/data/tours-simple.json`)
 );
 
 const getAllTour = (req, res) => {
+  console.log('req.requestTime', req.requestTime);
+
   res.status(200).json({
     status: 'success',
+    requestAt: req.requestTime,
     results: tours.length,
     data: {
       tours,
@@ -98,6 +111,7 @@ const deleteTour = (req, res) => {
 
 // config routers
 app.route('/api/v1/tours').get(getAllTour).post(createTour);
+
 app
   .route('/api/v1/tours/:id')
   .get(getTour)
