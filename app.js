@@ -1,3 +1,4 @@
+const exp = require('constants');
 const express = require('express');
 const fs = require('fs');
 
@@ -139,21 +140,15 @@ const deleteUser = (req, res) => {
 };
 
 // todo configRoutes
-app.route('/api/v1/tours').get(getAllTour).post(createTour);
+const tourRouter = express.Router();
+const userRouter = express.Router();
+app.use('/api/v1/tours', tourRouter);
+app.use('/api/v1/users', userRouter);
 
-app
-  .route('/api/v1/tours/:id')
-  .get(getTour)
-  .patch(updateTour)
-  .delete(deleteTour);
-
-app.route('/api/v1/users').get(getAllUsers).post(createUser);
-
-app
-  .route('/api/v1/users/:id')
-  .get(getUser)
-  .patch(updateUser)
-  .delete(deleteUser);
+tourRouter.route('/').get(getAllTour).post(createTour);
+tourRouter.route('/:id').get(getTour).patch(updateTour).delete(deleteTour);
+userRouter.route('/').get(getAllUsers).post(createUser);
+userRouter.route('/:id').get(getUser).patch(updateUser).delete(deleteUser);
 
 app.listen(port, () => {
   console.log(`App listening on ${port}`);
