@@ -4,9 +4,19 @@ const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 );
 
-const getAllTour = (req, res) => {
-  console.log('req.requestTime', req.requestTime);
+exports.checkID = (req, res, next, val) => {
+  console.log(`Tour id is: ${val} in CheckID`);
 
+  if (req.params.id > tours.length) {
+    return res.status(404).json({
+      status: 'fail',
+      message: 'Invalid ID',
+    });
+  }
+  next();
+};
+
+exports.getAllTour = (req, res) => {
   res.status(200).json({
     status: 'success',
     requestAt: req.requestTime,
@@ -16,26 +26,18 @@ const getAllTour = (req, res) => {
     },
   });
 };
-const getTour = (req, res) => {
+exports.getTour = (req, res) => {
   const id = req.params.id * 1;
   const tour = tours.find((el) => el.id === id);
 
-  // if (id > tours.length) {
-  if (!tour) {
-    res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID',
-    });
-  } else {
-    res.status(200).json({
-      status: 'success',
-      data: {
-        tour,
-      },
-    });
-  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour,
+    },
+  });
 };
-const createTour = (req, res) => {
+exports.createTour = (req, res) => {
   const newId = tours[tours.length - 1].id + 1;
   const newTour = Object.assign({ id: newId }, req.body);
   tours.push(newTour);
@@ -53,45 +55,23 @@ const createTour = (req, res) => {
     }
   );
 };
-const updateTour = (req, res) => {
+exports.updateTour = (req, res) => {
   const id = req.params.id * 1;
 
-  if (id > tours.length) {
-    res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID',
-    });
-  } else {
-    res.status(200).json({
-      status: 'success',
-      data: {
-        tour: '<Update a tour...>',
-      },
-    });
-  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      tour: '<Update a tour...>',
+    },
+  });
 };
-const deleteTour = (req, res) => {
+exports.deleteTour = (req, res) => {
   const id = req.params.id * 1;
 
-  if (id > tours.length) {
-    res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID',
-    });
-  } else {
-    res.status(204).json({
-      status: 'success',
-      data: {
-        tour: null,
-      },
-    });
-  }
-};
-
-module.exports = {
-  getAllTour,
-  getTour,
-  createTour,
-  updateTour,
-  deleteTour,
+  res.status(204).json({
+    status: 'success',
+    data: {
+      tour: null,
+    },
+  });
 };
