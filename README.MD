@@ -3,3 +3,4 @@
 006 Starting Our API Handling GET Requests
 007 Handling POST Requests
 008 Responding to URL Parameters
+009 Handling PATCH Requests
