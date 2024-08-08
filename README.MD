@@ -20,3 +20,7 @@
 #07 - Introduction to MongoDB
 001 Section Intro
 002 What is MongoDB
+
+08 - Using MongoDB with Mongoose
+001 Section Intro
+002 Connecting Our Database with the Express App
