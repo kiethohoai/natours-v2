@@ -27,3 +27,4 @@
 003 What Is Mongoose
 004 Creating a Simple Tour Model
 005 Creating Documents and Testing the Model
+006 Intro to Back-End Architecture MVC, Types of Logic, and More
