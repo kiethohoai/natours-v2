@@ -36,6 +36,20 @@ const tourSchema = new Schema({
 // Create a modal
 const Tour = mongoose.model('Tour', tourSchema);
 
+const testTour = new Tour({
+  name: 'The forest Hiker 3',
+  price: 500,
+});
+
+testTour
+  .save()
+  .then((doc) => {
+    console.log('🚀CHECK  doc =', doc);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`App listening on ${port}`);

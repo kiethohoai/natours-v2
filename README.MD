@@ -26,3 +26,4 @@
 002 Connecting Our Database with the Express App
 003 What Is Mongoose
 004 Creating a Simple Tour Model
+005 Creating Documents and Testing the Model
