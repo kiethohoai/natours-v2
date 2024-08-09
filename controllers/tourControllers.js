@@ -3,7 +3,22 @@ const Tour = require('../models/tourModel');
 // todo getAllTour
 exports.getAllTour = async (req, res) => {
   try {
-    const tours = await Tour.find();
+    const queryObj = { ...req.query };
+    const excFields = ['page', 'sort', 'limit', 'fields'];
+    excFields.forEach((el) => delete queryObj[el]);
+
+    console.log(req.query, queryObj);
+
+    // #1 query
+    const tours = await Tour.find(queryObj);
+
+    // #2 query
+    // const tours = await Tour.find()
+    //   .where('duration')
+    //   .equals(5)
+    //   .where('difficulty')
+    //   .equals('easy');
+
     res.status(200).json({
       status: 'success',
       results: tours.length,
