@@ -3,7 +3,7 @@ const router = express.Router();
 const tourController = require('../controllers/tourControllers');
 
 // Check ID Middleware before go to Routes
-router.param('id', tourController.checkID);
+// router.param('id', tourController.checkID);
 
 router
   .route('/')
