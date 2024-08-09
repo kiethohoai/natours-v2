@@ -32,3 +32,4 @@
 008 Another Way of Creating Documents
 009 Reading Documents
 010 Updating Documents
+011 Deleting Documents
