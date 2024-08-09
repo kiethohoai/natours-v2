@@ -2,22 +2,22 @@ const Tour = require('../models/tourModel');
 
 // todo getAllTour
 exports.getAllTour = async (req, res) => {
+  console.log('🚀CHECK  req.query =', req.query);
+
   try {
+    // 1) Filtering
     const queryObj = { ...req.query };
     const excFields = ['page', 'sort', 'limit', 'fields'];
     excFields.forEach((el) => delete queryObj[el]);
 
-    console.log(req.query, queryObj);
+    // 2) Advance Filtering
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|ge|lte|lt)\b/g, (match) => `$${match}`);
 
-    // #1 query
-    const tours = await Tour.find(queryObj);
+    const query = Tour.find(JSON.parse(queryStr));
 
-    // #2 query
-    // const tours = await Tour.find()
-    //   .where('duration')
-    //   .equals(5)
-    //   .where('difficulty')
-    //   .equals('easy');
+    // 3) Excute Query
+    const tours = await query;
 
     res.status(200).json({
       status: 'success',
