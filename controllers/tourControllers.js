@@ -2,23 +2,24 @@ const Tour = require('../models/tourModel');
 
 // todo getAllTour
 exports.getAllTour = async (req, res) => {
-  console.log('🚀CHECK  req.query =', req.query);
-
   try {
-    // 1) Filtering
+    // 1A) Filtering
     const queryObj = { ...req.query };
     const excFields = ['page', 'sort', 'limit', 'fields'];
     excFields.forEach((el) => delete queryObj[el]);
 
-    // 2) Advance Filtering
+    // 1B) Advance Filtering
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|ge|lte|lt)\b/g, (match) => `$${match}`);
-    console.log('🚀CHECK  queryStr =', JSON.parse(queryStr));
+    let query = Tour.find(JSON.parse(queryStr));
 
-    const query = Tour.find(JSON.parse(queryStr));
-    // {difficultly : "easy", duration: { $gte: 5 }}
-    // { difficulty: 'easy', duration: { gte: '5' } }
-    // gte, gt, lte, lt
+    // 2) Sorting
+    if (req.query.sort) {
+      const sortBy = req.query.sort.split(',').join(' ');
+      query = query.sort(sortBy);
+    } else {
+      query = query.sort('-createdAt');
+    }
 
     // 3) Excute Query
     const tours = await query;
