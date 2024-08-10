@@ -5,6 +5,8 @@ const tourController = require('../controllers/tourControllers');
 // Check ID Middleware before go to Routes
 // router.param('id', tourController.checkID);
 
+router.route('/tour-stats').get(tourController.getTourStats);
+
 router
   .route('/top-5-cheap')
   .get(tourController.aliasTopTours, tourController.getAllTour);
