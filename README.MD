@@ -40,3 +40,4 @@
 016 Making the API Better Sorting
 017 Making the API Better Limiting Fields
 018 Making the API Better Pagination
+019 Making the API Better Aliasing
