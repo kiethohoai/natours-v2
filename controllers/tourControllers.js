@@ -3,14 +3,16 @@ const Tour = require('../models/tourModel');
 // todo getAllTour
 exports.getAllTour = async (req, res) => {
   try {
-    // 1A) Filtering
+    //TODO 1A) Filtering
     const queryObj = { ...req.query };
     const excFields = ['page', 'sort', 'limit', 'fields'];
     excFields.forEach((el) => delete queryObj[el]);
 
-    // 1B) Advance Filtering
+    //TODO 1B) Advance Filtering
     let queryStr = JSON.stringify(queryObj);
     queryStr = queryStr.replace(/\b(gte|ge|lte|lt)\b/g, (match) => `$${match}`);
+
+    // TODO CREATE A QUERY AND USE IT IN MORE USEFUL WAY
     let query = Tour.find(JSON.parse(queryStr));
 
     // 2) Sorting
@@ -21,7 +23,17 @@ exports.getAllTour = async (req, res) => {
       query = query.sort('-createdAt');
     }
 
-    // 3) Excute Query
+    //TODO 3) Field Limiting
+    if (req.query.fields) {
+      console.log('🚀CHECK  req.query.fields =', req.query.fields);
+      const fields = req.query.fields.split(',').join(' ');
+      // query = query.select('name duration price');
+      query = query.select(fields);
+    } else {
+      query = query.select('-__v');
+    }
+
+    //TODO Excute Query
     const tours = await query;
 
     res.status(200).json({
