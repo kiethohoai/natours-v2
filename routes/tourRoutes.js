@@ -12,6 +12,10 @@ router
   .get(tourController.aliasTopTours, tourController.getAllTour);
 
 router
+  .route('/monthly-plan/:year')
+  .get(tourController.aliasTopTours, tourController.getMonthlyPlant);
+
+router
   .route('/')
   .get(tourController.getAllTour)
   .post(tourController.createTour);

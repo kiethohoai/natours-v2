@@ -17,6 +17,7 @@ mongoose
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/tours-simple.json`, 'utf-8')
 );
+console.log('🚀CHECK  tours =', tours);
 
 // IMPORT DATA TO DATABASE
 const importData = async () => {
