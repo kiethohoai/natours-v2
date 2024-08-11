@@ -46,3 +46,4 @@
 022 Aggregation Pipeline Unwinding and Projecting
 023 Virtual Properties
 024 Document Middleware
+025 Query Middleware
