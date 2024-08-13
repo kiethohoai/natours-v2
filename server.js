@@ -1,18 +1,23 @@
 const mongoose = require('mongoose');
-const app = require('./app');
 const dotenv = require('dotenv');
-dotenv.config({ path: './config.env' });
 
-// Config mongoose to express
-const DB = process.env.DATABASE;
+dotenv.config({ path: './config.env' });
+const app = require('./app');
+
+const DB = process.env.DATABASE.replace(
+  '<PASSWORD>',
+  process.env.DATABASE_PASSWORD
+);
+
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
   })
-  .then(() => console.log(`Connect to DB successfuly!`));
+  .then(() => console.log('DB connection successful!'));
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`App listening on ${port}`);
+  console.log(`App running on port ${port}...`);
 });

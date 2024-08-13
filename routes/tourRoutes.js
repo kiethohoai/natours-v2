@@ -1,23 +1,20 @@
 const express = require('express');
+const tourController = require('./../controllers/tourController');
+
 const router = express.Router();
-const tourController = require('../controllers/tourControllers');
 
-// Check ID Middleware before go to Routes
 // router.param('id', tourController.checkID);
-
-router.route('/tour-stats').get(tourController.getTourStats);
 
 router
   .route('/top-5-cheap')
-  .get(tourController.aliasTopTours, tourController.getAllTour);
+  .get(tourController.aliasTopTours, tourController.getAllTours);
 
-router
-  .route('/monthly-plan/:year')
-  .get(tourController.aliasTopTours, tourController.getMonthlyPlant);
+router.route('/tour-stats').get(tourController.getTourStats);
+router.route('/monthly-plan/:year').get(tourController.getMonthlyPlan);
 
 router
   .route('/')
-  .get(tourController.getAllTour)
+  .get(tourController.getAllTours)
   .post(tourController.createTour);
 
 router

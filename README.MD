@@ -50,3 +50,5 @@
 026 Aggregation Middleware
 027 Data Validation Built-In Validators
 028 Data Validation Custom Validators
+
+09 - Error Handling with Express & Code after-section-08
