@@ -58,3 +58,5 @@
 004 An Overview of Error Handling
 005 Implementing a Global Error Handling Middleware
 006 Better Errors and Refactoring
+007 Catching Errors in Async Functions
+008 Adding 404 Not Found Errors
