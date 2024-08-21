@@ -66,3 +66,5 @@
 012 Handling Mongoose Validation Errors
 013 Errors Outside Express Unhandled Rejections
 014 Catching Uncaught Exceptions
+
+10 - Authentication, Authorization and Security
