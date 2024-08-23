@@ -76,3 +76,4 @@
 006 Signing up Users
 007 Logging in Users
 008 Protecting Tour Routes - Part 1
+009 Protecting Tour Routes - Part 2
