@@ -17,7 +17,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
-    passwordChangedAt: req.body.passwordChangedAt
+    passwordChangedAt: req.body.passwordChangedAt,
+    role: req.body.role
   });
 
   /*   const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
@@ -93,3 +94,15 @@ exports.protect = catchAsync(async (req, res, next) => {
   req.user = curUser;
   next();
 });
+
+exports.restrictTo = (...roles) => {
+  // role ['admin', 'lead-guide']. role='user'
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError('You do not have permission to perform this action', 403)
+      );
+    }
+    next();
+  };
+};
