@@ -85,3 +85,4 @@
 015 Updating the Current User Password
 016 Updating the Current User Data
 017 Deleting the Current User
+018 Security Best Practices
