@@ -81,3 +81,4 @@
 011 Authorization User Roles and Permissions
 012 Password Reset Functionality Reset Token
 013 Sending Emails with Nodemailer
+014 Password Reset Functionality Setting New Password
