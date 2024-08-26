@@ -83,3 +83,4 @@
 013 Sending Emails with Nodemailer
 014 Password Reset Functionality Setting New Password
 015 Updating the Current User Password
+016 Updating the Current User Data
