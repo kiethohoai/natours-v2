@@ -82,3 +82,4 @@
 012 Password Reset Functionality Reset Token
 013 Sending Emails with Nodemailer
 014 Password Reset Functionality Setting New Password
+015 Updating the Current User Password
