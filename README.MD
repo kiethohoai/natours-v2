@@ -91,5 +91,5 @@
 021 Setting Security HTTP Headers
 022 Data Sanitization
 023 Preventing Parameter Pollution
-==================================
+
 11 - Modelling Data and Advanced Mongoose
