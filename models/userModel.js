@@ -6,28 +6,28 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Please tell us your name!']
+    required: [true, 'Please tell us your name!'],
   },
   email: {
     type: String,
     unique: true,
     lowercase: true,
     required: [true, 'Email is required'],
-    validate: [validator.isEmail, 'Please provide a valid email!']
+    validate: [validator.isEmail, 'Please provide a valid email!'],
   },
   photo: {
-    type: String
+    type: String,
   },
   role: {
     type: String,
     enum: ['user', 'guide', 'lead-guide', 'admin'],
-    default: 'user'
+    default: 'user',
   },
   password: {
     type: String,
     required: [true, 'Please provide a password!'],
     minlength: 8,
-    select: false
+    select: false,
   },
   passwordConfirm: {
     type: String,
@@ -37,12 +37,12 @@ const userSchema = new mongoose.Schema({
       validator: function(el) {
         return el === this.password; // false > error, true is OK
       },
-      message: 'Password are not the same!'
-    }
+      message: 'Password are not the same!',
+    },
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
-  passwordResetEspires: Date
+  passwordResetEspires: Date,
 });
 
 userSchema.pre('save', async function(next) {
@@ -60,7 +60,7 @@ userSchema.pre('save', async function(next) {
 // Instance Methods
 userSchema.methods.correctPassword = async function(
   candidatePassword,
-  userPassword
+  userPassword,
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };
@@ -69,7 +69,7 @@ userSchema.methods.changedPasswordAfter = function(JWTTimestamp) {
   if (this.passwordChangedAt) {
     const changedTimestamp = parseInt(
       this.passwordChangedAt.getTime() / 1000,
-      10
+      10,
     );
     return JWTTimestamp < changedTimestamp;
   }
@@ -84,8 +84,6 @@ userSchema.methods.createPasswordResetToken = function() {
     .createHash('sha256')
     .update(resetToken)
     .digest('hex');
-
-  console.log('🚀CHECK  resetToken =', resetToken);
 
   this.passwordResetEspires = Date.now() + 10 * 60 * 1000;
   return resetToken;
