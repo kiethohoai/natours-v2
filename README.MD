@@ -94,3 +94,4 @@
 
 11 - Modelling Data and Advanced Mongoose
 002 MongoDB Data Modelling
+003 Designing Our Data Model
