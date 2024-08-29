@@ -28,3 +28,4 @@
 ### CHAPER 8 USING MONGOBD WITH MONGOOSE
 
 004 Creating a Simple Tour Model
+005 Creating Documents and Testing the Model

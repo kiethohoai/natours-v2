@@ -8,7 +8,7 @@ console.log(process.env.NODE_ENV);
 
 const DB = process.env.DATABASE;
 
-// onfig mongoose to express
+// Config mongoose to express
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
@@ -38,9 +38,21 @@ const tourSchema = new mongoose.Schema({
 
 const Tour = mongoose.model('Tour', tourSchema);
 
+const testTour = new Tour({
+  name: 'The Test Tour 3',
+  price: 500,
+});
+
+testTour
+  .save()
+  .then(data => {
+    console.log('🚀CHECK  data =', data);
+  })
+  .catch(err => {
+    console.log('🚀CHECK  err =', err.message);
+  });
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`App listening on ${port}`);
 });
-
-module.exports = Tour;
