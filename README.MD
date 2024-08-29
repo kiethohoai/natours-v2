@@ -31,3 +31,4 @@
 005 Creating Documents and Testing the Model
 006 Intro to Back-End Architecture MVC, Types of Logic, and More
 007 Refactoring for MVC
+008 Another Way of Creating Documents
