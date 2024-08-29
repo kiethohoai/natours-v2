@@ -26,4 +26,5 @@
 002 Connecting Our Database with the Express App
 
 ### CHAPER 8 USING MONGOBD WITH MONGOOSE
-003 What Is Mongoose
+
+004 Creating a Simple Tour Model
