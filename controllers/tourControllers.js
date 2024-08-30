@@ -18,12 +18,20 @@ exports.getAllTour = async (req, res) => {
     // QUERY
     let query = Tour.find(JSON.parse(queryStr));
 
-    // 3) SORT
+    // 2) SORT
     if (req.query.sort) {
       const sortBy = req.query.sort.split(',').join(' ');
       query = query.sort(sortBy);
     } else {
       query = query.sort('-createdAt');
+    }
+
+    // 3) FIELDS LIMIT
+    if (req.query.fields) {
+      const fields = req.query.fields.split(',').join(' ');
+      query = query.select(fields); // fields = "name duration difficulty price"
+    } else {
+      query = query.select('-__v'); // Remove __v
     }
 
     // EXCUTE QUERY
