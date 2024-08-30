@@ -3,7 +3,28 @@ const Tour = require('../model/tourModel');
 // todo GET ALL TOURS
 exports.getAllTour = async (req, res) => {
   try {
-    const tours = await Tour.find();
+    const queryObj = { ...req.query };
+    const excludedFields = ['page', 'sort', 'limit', 'fields']; //Loai tru
+    excludedFields.forEach((el) => delete queryObj[el]);
+
+    console.log('🚀🚀🚀 req.query =', req.query);
+    console.log('🚀🚀🚀  queryObj=', queryObj);
+
+    // 1)
+    // const query = Tour.find()
+    //   .where('duration')
+    //   .equals(5)
+    //   .where('difficulty')
+    //   .equals('easy');
+
+    // 2)
+    // const tours = await Tour.find(req.query);
+    // const tours = await Tour.find(queryObj);
+    const query = Tour.find(queryObj);
+
+    // 3) Final result of exc query
+    const tours = await query;
+
     res.status(200).json({
       status: 'success',
       results: tours.length,
