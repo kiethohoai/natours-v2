@@ -1,5 +1,6 @@
 const Tour = require('../model/tourModel');
 
+// todo GET ALL TOURS
 exports.getAllTour = async (req, res) => {
   try {
     const tours = await Tour.find();
@@ -18,6 +19,7 @@ exports.getAllTour = async (req, res) => {
   }
 };
 
+// todo GET TOUR
 exports.getTour = async (req, res) => {
   try {
     const tours = await Tour.findById(req.params.id);
@@ -54,18 +56,30 @@ exports.createTour = async (req, res) => {
   }
 };
 
-exports.updateTour = (req, res) => {
-  const id = req.params.id * 1;
+// todo UPDATE
+exports.updateTour = async (req, res) => {
+  try {
+    const tour = await Tour.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
 
-  res.status(200).json({
-    status: 'success',
-    data: {
-      tour: '<Update a tour...>',
-    },
-  });
+    res.status(201).json({
+      status: 'success',
+      data: {
+        tour,
+      },
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: 'fail',
+      message: error,
+    });
+  }
 };
+
 exports.deleteTour = (req, res) => {
-  const id = req.params.id * 1;
+  // const id = req.params.id * 1;
   res.status(204).json({
     status: 'success',
     data: {
