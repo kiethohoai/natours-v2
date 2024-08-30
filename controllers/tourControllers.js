@@ -3,26 +3,25 @@ const Tour = require('../model/tourModel');
 // todo GET ALL TOURS
 exports.getAllTour = async (req, res) => {
   try {
+    // FILTER
     const queryObj = { ...req.query };
-    const excludedFields = ['page', 'sort', 'limit', 'fields']; //Loai tru
+    const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach((el) => delete queryObj[el]);
 
+    // CHECK
     console.log('🚀🚀🚀 req.query =', req.query);
     console.log('🚀🚀🚀  queryObj=', queryObj);
 
-    // 1)
-    // const query = Tour.find()
-    //   .where('duration')
-    //   .equals(5)
-    //   .where('difficulty')
-    //   .equals('easy');
+    // FITER ADVANCE
+    // mongo   { difficulty: 'easy', duration: { $gte: 5 } }
+    // express { difficulty: 'easy', duration: { gte: '5' } }
+    // Replace: gt. gte, lt, lte
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gt|gte|lt|lte)\b/g, (match) => `$${match}`);
+    console.log('🚀🚀🚀  queryStr=', JSON.parse(queryStr));
 
-    // 2)
-    // const tours = await Tour.find(req.query);
-    // const tours = await Tour.find(queryObj);
-    const query = Tour.find(queryObj);
-
-    // 3) Final result of exc query
+    // Excute Query
+    const query = Tour.find(JSON.parse(queryStr));
     const tours = await query;
 
     res.status(200).json({
