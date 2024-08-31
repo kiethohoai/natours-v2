@@ -49,3 +49,4 @@
 023 Virtual Properties
 024 Document Middleware
 025 Query Middleware
+026 Aggregation Middleware
